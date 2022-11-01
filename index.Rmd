@@ -6,11 +6,14 @@ output:
     toc_float: true
 ---
 
-<img src="Fengdi.jpg" width = "500" height = "620">
+<img src="Fengdi.jpg" width = "400" height = "500">  
+<br>  
+<br>   
 
 ## Fengdi's Academic & Professional Experience  
-To know about about Fengdi's professional experiences in public health, you can explore the [resume](resume.html) page. 
-You can also explore Fengdi's [LinkedIn page](https://www.linkedin.com/in/fengdi-zhang/) for more details. 
+To know about about Fengdi's professional experiences in public health, you can explore the [resume](resume.html) page.  
+You can also explore Fengdi's [LinkedIn page](https://www.linkedin.com/in/fengdi-zhang/) for more details.  
+To look at Fengdi's data work, you can visit her [Github](https://github.com/fz2328) page.
 
 
 
