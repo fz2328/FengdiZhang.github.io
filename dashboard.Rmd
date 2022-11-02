@@ -31,7 +31,8 @@ ny_noaa = ny_noaa %>%
   mutate(
     prcp = 0.1*prcp, 
     tmax = 0.1*tmax,
-    tmin = 0.1*tmax) %>% 
+    tmin = 0.1*tmax,
+    snow = round(snow*0.03937*4)/4) %>% 
   filter(year == 2010)
 ```
 
