@@ -7,10 +7,12 @@ navbar:
       href: resume.html
     - text: "Dashboard"
       href: dashboard.html
-    - icon: fa-solid fa-bug
-      href: mailto:<you@youremail.com>
+    - icon: fa-regular fa-envelope
+      href: mailto:<fz2328@cumc.columbia.edu>
+    - icon: fa-brands fa-linkedin
+      href: https://www.linkedin.com/in/fengdi-zhang/
     - icon: fa-github fa-lg
-      href: http://github.com/<YOUR_GH_NAME>/
+      href: https://github.com/fz2328
 output:
   html_document:
     theme: cerulean

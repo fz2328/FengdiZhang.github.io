@@ -1,5 +1,5 @@
 ---
-title: "AirBNB Dashboard"
+title: "NY NOAA 2010"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -11,55 +11,62 @@ library(tidyverse)
 library(p8105.datasets)
 library(plotly)
 library(flexdashboard)
+library(dplyr)
 ```
+
 
 ```{r, include=FALSE}
-data("nyc_airbnb")
+data("ny_noaa")
 
-nyc_airbnb = 
-  nyc_airbnb %>% 
-  mutate(rating = review_scores_location / 2) %>%
-  select(
-    borough = neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) %>%
-  filter(
-    !is.na(rating), 
-    borough == "Manhattan",
-    room_type == "Entire home/apt",
-    price %in% 100:500)
+ny_noaa = ny_noaa %>% 
+  separate(date, into = c("year", "month", "day"), sep = "-")
+
+ny_noaa = ny_noaa %>% 
+  mutate(
+    year = as.numeric(year),
+    month = as.numeric(month),
+    day = as.numeric(day),
+    tmax = as.numeric(tmax),
+    tmin = as.numeric(tmin)) %>% 
+  mutate(
+    prcp = 0.1*prcp, 
+    tmax = 0.1*tmax,
+    tmin = 0.1*tmax) %>% 
+  filter(year == 2010)
 ```
-
-All of these data-width should add up to 1000 in total. 
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Distribution of Precipitation and SnowFall in 2010, colored by months. 
 
-```{r}
-nyc_airbnb %>%
-  mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) %>% 
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+ny_noaa %>% 
+  mutate(text_label = str_c("Precipitation(mm):", prcp, "\nSnowFall(mm): ", snow)) %>%
   plot_ly(
-    x = ~lat, y = ~long, type = "scatter", mode = "markers",
-    color = ~price, text = ~text_label, alpha = 0.5)
+    x = ~prcp, y = ~snow, type = "scatter", mode = "markers",
+    color = ~month, text = ~text_label)
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### The monthly distribution of maximum temperature(degrees C) in 2010
 
-```{r}
-nyc_airbnb %>% 
-  mutate(neighbourhood = fct_reorder(neighbourhood, price)) %>% 
-  plot_ly(y = ~price, color = ~neighbourhood, type = "box", colors = "viridis")
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+ny_noaa %>% 
+  mutate(month = as.character(month)) %>% 
+  plot_ly(x = ~month, y = ~tmax, color = ~month, type = "box", colors = "viridis")
+
 ```
 
-### Chart C
+### The number of days where non-zero precipitation values were recorded in each month at each location in 2010 
 
-```{r}
-nyc_airbnb %>% 
-  count(neighbourhood) %>% 
-  mutate(neighbourhood = fct_reorder(neighbourhood, n)) %>% 
-  plot_ly(x = ~neighbourhood, y = ~n, color = ~neighbourhood, type = "bar", colors = "viridis")
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+ny_noaa %>% 
+  group_by(id, month) %>% 
+  mutate(prcp_days = sum(prcp > 0, na.rm = TRUE)) %>% 
+  plot_ly(x = ~month, y = ~prcp_days, color = ~month, type = "bar", colors = "viridis")
+  
 ```
 
