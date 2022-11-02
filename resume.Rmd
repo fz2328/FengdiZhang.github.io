@@ -1,0 +1,39 @@
+---
+title: "Fengdi's Academic & Professional Experience"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+## Education
+**Columbia University, Mailman School of Public Health**          *Anticipated May 2023*  
+Master of Public Health; Epidemiology; Comparative Effectiveness Outcomes Research;  
+GPA: 4.05/4.33  
+Relevant Courses: Epidemiology, Biostatistics, Health Economics, Healthcare Systems, Decision Analysis  
+  
+**University of British Columbia**          *September 2015 – May 2020*							        
+Bachelor of Dental Science; Dental Hygiene;  
+GPA: 3.7/4.00  
+Relevant Courses: Public Health Policy, Statistics, Mathematics, Case Simulation, Applied Pharmacology
+
+## Research Experience
+**Research Assistant**  
+*Columbia University; Division of General Medicine; Comparative Effectiveness Research*  
+*June 2022 – Present *  
+* Performed 100+ times of microsimulation and cost-effectiveness analysis in TreeAge Pro to identify the clinical and economic outcomes of hypertensive treatment strategies at 10 years, guiding public health policy development.  
+* Used SAS and R to perform data analysis, resulting in 4 desired datasets to be used in comparative modeling.
+
+
+**Research Assistant**  
+*University of Hong Kong; School of Public Health; Data Collection*  
+*July 2022 – September 2022*  
+* Reviewed 283 articles on Omicron and Monkeypox, developed manuscripts and generated 2 [publications](https://academic.oup.com/jtm/advance-article/doi/10.1093/jtm/taac108/6731971) as the co-first authors.  
+* Collected demographic data for 4 countries by conducting research in national and public databases, which will be used by the team to construct an infectious disease forecasting model.
+
+
+
+
+
+
+

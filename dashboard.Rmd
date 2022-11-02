@@ -1,0 +1,74 @@
+---
+title: "NY NOAA 2010"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(flexdashboard)
+library(dplyr)
+```
+
+
+```{r, include=FALSE}
+data("ny_noaa")
+
+ny_noaa = ny_noaa %>% 
+  separate(date, into = c("year", "month", "day"), sep = "-")
+
+ny_noaa = ny_noaa %>% 
+  mutate(
+    year = as.numeric(year),
+    month = as.numeric(month),
+    day = as.numeric(day),
+    tmax = as.numeric(tmax),
+    tmin = as.numeric(tmin)) %>% 
+  mutate(
+    prcp = 0.1*prcp, 
+    tmax = 0.1*tmax,
+    tmin = 0.1*tmax,
+    snow = round(snow*0.03937*4)/4
+    ) %>% 
+  filter(year == 2010)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Distribution of Precipitation and SnowFall in 2010, colored by months. 
+
+```{r, warning=FALSE, message=FALSE}
+ny_noaa %>% 
+  mutate(text_label = str_c("Precipitation(mm):", prcp, "\nSnowFall(mm): ", snow)) %>%
+  plot_ly(
+    x = ~prcp, y = ~snow, type = "scatter", mode = "markers", 
+    color = ~month, text = ~text_label)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### The monthly distribution of maximum temperature(degrees C) in 2010
+
+```{r, warning=FALSE, message=FALSE}
+ny_noaa %>% 
+  mutate(month = as.character(month)) %>% 
+  plot_ly(x = ~month, y = ~tmax, color = ~month, type = "box", colors = "viridis")
+
+```
+
+### The number of days where non-zero precipitation values were recorded in each month at each location in 2010 
+
+```{r, warning=FALSE, message=FALSE}
+ny_noaa %>% 
+  group_by(id, month) %>% 
+  mutate(prcp_days = sum(prcp > 0, na.rm = TRUE)) %>% 
+  plot_ly(x = ~month, y = ~prcp_days, color = ~month, type = "bar", colors = "viridis")
+  
+```
+
